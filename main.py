@@ -45,6 +45,8 @@ async def textbox(inter: discord.Interaction, text: str, character: str = "", ex
         print(f"Get {file_url}?{query_str} failed with error {image_request.status_code}")
         await inter.response.send_message("Request image failed", ephemeral=True)
 
+    image_request.close()
+
 @bot.tree.command(name="randtext", description="Generates a random textbox")
 @discord.app_commands.describe(animated="Whether the text should be animated")
 async def randtext(inter: discord.Interaction, animated: bool = False) -> None:
@@ -61,6 +63,8 @@ async def randtext(inter: discord.Interaction, animated: bool = False) -> None:
     else:
         print(f"Get {file_url}?{query_str} failed with error {image_request.status_code}")
         await inter.response.send_message("Request image failed", ephemeral=True)
+
+    image_request.close()
 
 @bot.tree.command(name="credits", description="View credits for the bot")
 async def credits(inter: discord.Interaction) -> None:
