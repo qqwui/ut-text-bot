@@ -2,6 +2,7 @@ import os
 import io
 import requests
 import discord
+from sys import eprint
 from dotenv import load_dotenv
 from urllib.parse import quote
 
@@ -33,7 +34,7 @@ async def textbox(inter: discord.Interaction, text: str, character: str = "", ex
     file_url = "undertale_text_box" + (".gif" if animated else ".png")
     query_str = f"text={quote(text)}&character={quote(character)}&expression={quote(expression)}&size=2"
 
-    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, text: {text}, character: {character if character else "none"}, expression: {expression}")
+    eprint(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, text: {text}, character: {character if character else "none"}, expression: {expression}")
 
     image_request = requests.get(f"{base_url}{file_url}?{query_str}")
 
@@ -53,7 +54,7 @@ async def randtext(inter: discord.Interaction, animated: bool = False) -> None:
     file_url =  "undertale_text_box" + (".gif" if animated else ".png")
     query_str = "random&size=2"
 
-    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, Random Textbox")
+    eprint(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, Random Textbox")
 
     image_request = requests.get(f"{base_url}{file_url}?{query_str}")
 
