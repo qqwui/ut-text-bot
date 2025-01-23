@@ -1,7 +1,6 @@
 import os
 
 import discord
-#from discord import app_commands
 from dotenv import load_dotenv
 from urllib.parse import quote
 
