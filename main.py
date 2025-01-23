@@ -7,7 +7,6 @@ from urllib.parse import quote
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-generator_baseurl="https://www.demirramon.com/gen/"
 
 
 intents = discord.Intents.default()
@@ -39,7 +38,7 @@ async def textbox(inter: discord.Interaction, text: str, character: str = "", ex
 @bot.tree.command(name="credits", description="View credits for the bot")
 async def credits(inter: discord.Interaction) -> None:
     await inter.response.send_message(
-"""Made by @qqwui, DM them if there's any issues!
+"""Made by @qqwui, DM them if there's any issues! You can view the source on [Github](https://github.com/qqwui/ut-text-bot).
 This bot uses Demirramon's [undertale textbox generator](https://www.demirramon.com/generators/undertale_text_box_generator). Thanks so much for the developer interface!""", ephemeral=True, suppress_embeds=True)
 
 bot.run(TOKEN)
