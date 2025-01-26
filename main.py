@@ -31,39 +31,43 @@ async def on_ready():
     animated="Whether the text should be animated"
 )
 async def textbox(inter: discord.Interaction, text: str, character: str = "", expression: str = "default", animated: bool = False) -> None:
+    await inter.response.defer()
+
     file_url = "undertale_text_box" + (".gif" if animated else ".png")
     query_str = f"text={quote(text)}&character={quote(character)}&expression={quote(expression)}&size=2"
 
-    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, text: {text}, character: {character if character else "none"}, expression: {expression}", file=stderr)
+    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.strftime('%Y-%m-%d %H:%M:%S')}, text: {text}, character: {character if character else 'none'}, expression: {expression}", file=stderr)
 
     image_request = requests.get(f"{base_url}{file_url}?{query_str}")
 
     if image_request.status_code == 200:
         # assume the image was sucessfully gotten ig
         myattachment = discord.File(io.BytesIO(image_request.content), filename=file_url)
-        await inter.response.send_message(file=myattachment)
+        await inter.followup.send(file=myattachment)
     else:
         print(f"Get {file_url}?{query_str} failed with error {image_request.status_code}", file=stderr)
-        await inter.response.send_message("Request image failed", ephemeral=True)
+        await inter.followup.send("Request image failed", ephemeral=True)
 
     image_request.close()
 
 @bot.tree.command(name="randtext", description="Generates a random textbox")
 @discord.app_commands.describe(animated="Whether the text should be animated")
 async def randtext(inter: discord.Interaction, animated: bool = False) -> None:
+    await inter.response.defer()
+
     file_url =  "undertale_text_box" + (".gif" if animated else ".png")
     query_str = "random&size=2"
 
-    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.isoformat(timespec="seconds")}, Random Textbox", file=stderr)
+    print(f"Username: {inter.user.name}, UserID: {inter.user.id}, Time: {inter.created_at.strftime('%Y-%m-%d %H:%M:%S')}, Random Textbox", file=stderr)
 
     image_request = requests.get(f"{base_url}{file_url}?{query_str}")
 
     if image_request.status_code == 200:
         myattachment = discord.File(io.BytesIO(image_request.content), filename=file_url)
-        await inter.response.send_message(file=myattachment)
+        await inter.followup.send(file=myattachment)
     else:
         print(f"Get {file_url}?{query_str} failed with error {image_request.status_code}", file=stderr)
-        await inter.response.send_message("Request image failed", ephemeral=True)
+        await inter.followup.send("Request image failed", ephemeral=True)
 
     image_request.close()
 
