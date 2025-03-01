@@ -3,10 +3,8 @@ import io
 import requests
 import discord
 from sys import stderr
-from dotenv import load_dotenv
 from urllib.parse import quote
 
-load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 base_url="https://www.demirramon.com/gen/"
 
